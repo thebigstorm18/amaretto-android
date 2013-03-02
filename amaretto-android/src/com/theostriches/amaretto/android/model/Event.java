@@ -18,6 +18,7 @@ public class Event {
 		Date date = new Date();
 		timestampCreation = date.getTime();
 	}
+	
 
 	public String getTitle() {
 		return title;
