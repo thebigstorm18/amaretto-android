@@ -1,5 +1,6 @@
 package com.theostriches.amaretto.android;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.theostriches.amaretto.android.model.Event;
+import com.theostriches.amaretto.android.model.User;
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -23,6 +26,9 @@ public class MainActivity extends SherlockFragmentActivity {
 
 
 	ViewPager mViewPager;
+	
+	private User user;
+	private ArrayList<Event> eventList;
 
 	
 	
@@ -39,6 +45,10 @@ public class MainActivity extends SherlockFragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		user = null;
+		// TODO from server
+		eventList = new ArrayList<Event>();
 
 	}
 
