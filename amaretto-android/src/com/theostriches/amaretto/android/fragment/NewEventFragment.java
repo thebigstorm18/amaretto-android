@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,11 +23,17 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.theostriches.amaretto.android.MainActivity;
 import com.theostriches.amaretto.android.R;
 import com.theostriches.amaretto.android.model.Event;
+import com.theostriches.amaretto.android.server.NewEvent;
+import com.theostriches.amaretto.android.server.PostLogIn;
+import com.theostriches.amaretto.android.util.LocalDataManager;
 
 public class NewEventFragment extends SherlockFragment {
 
 	private MainActivity mMain;
 	private Event event;
+	private EditText et;
+	private EditText et2;
+	private LocalDataManager mLocalData;
 	
 
 	@Override
@@ -33,14 +41,15 @@ public class NewEventFragment extends SherlockFragment {
 		super.onAttach(activity);
 		mMain = (MainActivity) activity;
 		event = new Event();
+		mLocalData = new LocalDataManager(mMain);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_newevent, container, false);
 		Button b = (Button) v.findViewById(R.id.buttonDate);
-		final EditText et = (EditText) v.findViewById(R.id.editTextTitle);
-		final EditText et2 = (EditText) v.findViewById(R.id.editTextDesc);
+		et = (EditText) v.findViewById(R.id.editTextTitle);
+		et2 = (EditText) v.findViewById(R.id.editTextDesc);
 
 		b.setOnClickListener(new OnClickListener() {
 
@@ -86,17 +95,45 @@ public class NewEventFragment extends SherlockFragment {
 			public void onClick(View v) {
 				event.setTitle(et.getText().toString());
 				event.setDescription(et2.getText().toString());
-				if (mMain.getUser() == null) {
-					Toast.makeText(mMain, "PRIMERO LOGEATE", Toast.LENGTH_LONG).show();
+				event.setLatitude(mMain.getLocation().getLatitude());
+				event.setLongitude(mMain.getLocation().getLongitude());
+				if (mLocalData.getLogin() == null) {
+					mMain.showLogin();
+				} else {
+					event.setGiver(mLocalData.getLogin().getName());
+					sendEvent(event);
 				}
 			}
 		});
 		return v;
+		
 	}
 
-	@Override
-	public void onStart() {
-		super.onStart();
+	private void sendEvent(Event event) {
+		Handler updateHandler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				try {
+					switch (msg.what) {
+					case NewEvent.CODE_OK:
+						Toast.makeText(mMain, "Evento enviado correctamente",
+								Toast.LENGTH_LONG).show();
+						et.setText("");
+						et2.setText("");
+						break;
+					case NewEvent.CODE_ERROR:
+					default:
+						Toast.makeText(mMain, "Fallo al enviar evento",
+								Toast.LENGTH_LONG).show();
+						break;
+					}
+				} catch (Exception e) {
+					// Fragment closed, do nothing
+				}
+			}
+		};
+		NewEvent up = new NewEvent(updateHandler, event);
+		up.start();
 	}
 
 }

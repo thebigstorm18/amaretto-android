@@ -78,7 +78,8 @@ public class LoginActivity extends SherlockFragmentActivity implements OnClickLi
 						break;
 					case PostLogIn.CODE_ERROR:
 					default:
-						// Show error
+						Toast.makeText(mContext, "Error",
+								Toast.LENGTH_LONG).show();
 						break;
 					}
 				} catch (Exception e) {

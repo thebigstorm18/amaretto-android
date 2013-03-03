@@ -5,14 +5,18 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.theostriches.amaretto.android.EventActivity;
 import com.theostriches.amaretto.android.MainActivity;
 import com.theostriches.amaretto.android.R;
 import com.theostriches.amaretto.android.model.Event;
@@ -20,7 +24,7 @@ import com.theostriches.amaretto.android.model.Point;
 import com.theostriches.amaretto.android.util.Log;
 import com.theostriches.amaretto.android.util.Util;
 
-public class EventListFragment extends SherlockListFragment {
+public class EventListFragment extends SherlockListFragment implements OnItemClickListener {
 
 	private MainActivity mMain;
 
@@ -45,6 +49,7 @@ public class EventListFragment extends SherlockListFragment {
 	@Override
 	public void onStart() {
 		getListView().setEmptyView(emptyT);
+		getListView().setOnItemClickListener(this);
 		super.onStart();
 	}
 
@@ -115,6 +120,17 @@ public class EventListFragment extends SherlockListFragment {
 
 		// adapter.notifyDataSetChanged();
 		Log.i("updateEvents");
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Event e = mMain.getEventList().get(arg2);
+		Point p = mMain.getLocation();
+		Intent i = new Intent(mMain, EventActivity.class);
+		i.putExtra("event", e);
+		i.putExtra("point", p);
+		i.putExtra("user", mMain.getUser());
+		startActivity(i);
 	}
 
 }

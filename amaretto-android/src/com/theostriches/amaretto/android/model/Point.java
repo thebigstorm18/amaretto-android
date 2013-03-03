@@ -1,8 +1,13 @@
 package com.theostriches.amaretto.android.model;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Point {
+public class Point implements Serializable {
+
+	private static final long serialVersionUID = -599138042090042775L;
+	
 	@SerializedName("latitude")
 	private double latitude;
 	@SerializedName("longitude")

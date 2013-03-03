@@ -41,6 +41,8 @@ public class PostLogIn extends Thread {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("username", user);
 			data.put("password", passHasH);
+			Log.e("u:"+ user);
+			Log.e("p:" + passHasH);
 			if (newUser) {
 				int code = HttpRequest.post(Constant.SERVER_URL + "/api/user").form(data).code();
 				if (code == 200) {
@@ -54,10 +56,8 @@ public class PostLogIn extends Thread {
 				if (code == 200) {
 					User u = new User(user, passHasH);
 					mHandler.sendMessage(Message.obtain(mHandler, CODE_OK, u));
-				} else if (code == 215) {
-					sendMessage(CODE_BADAUTH);
 				} else {
-					sendMessage(CODE_ERROR);
+					sendMessage(CODE_BADAUTH);
 				}
 			}
 			

@@ -71,7 +71,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		setUser(null);
+		setUser(mLocalDataManager.getLogin());
 		// TODO from server
 		eventList = new ArrayList<Event>();
 		// Event e1 = new Event();
@@ -90,17 +90,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 
 
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_log:
-			Intent i = new Intent(mContext, LoginActivity.class);
-			startActivityForResult(i, LOGIN_REQUEST);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
 
-	}
 
 	public ArrayList<Event> getEventList() {
 		return eventList;
@@ -304,8 +294,33 @@ public class MainActivity extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		SubMenu submenu = menu.addSubMenu(0, Menu.NONE, 1, R.string.menu_more).setIcon(R.drawable.ic_menu_more);
 		submenu.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		submenu.add(0, 1, Menu.NONE, "Log");
+		submenu.add(0, 1, Menu.NONE, "Usuario");
 	    return super.onCreateOptionsMenu(menu);
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		case 1:
+			if (mLocalDataManager.getLogin() == null) {
+				showLogin();
+			} else {
+				mLocalDataManager.clearLogin();
+				Toast.makeText(mContext, "LogOut realizado", Toast.LENGTH_LONG).show();
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	public void showLogin() {
+		Intent i = new Intent(mContext, LoginActivity.class);
+		startActivityForResult(i, LOGIN_REQUEST);
 	}
 
 
