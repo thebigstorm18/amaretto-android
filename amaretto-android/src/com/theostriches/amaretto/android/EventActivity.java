@@ -1,6 +1,7 @@
 package com.theostriches.amaretto.android;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
@@ -51,26 +52,29 @@ public class EventActivity extends SherlockFragmentActivity implements OnClickLi
 		TextView t3 = (TextView) findViewById(R.id.textViewUser);
 		t3.setText("por " + e.getGiver().getName());
 		TextView t4 = (TextView) findViewById(R.id.textViewMore);
-		Date d = new Date();
-		d.setTime(e.getTimestampLimit());
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(e.getTimestampLimit());
 		t4.setText("hasta "
-				+ d.toLocaleString()
+				+ calendar.get(Calendar.DAY_OF_MONTH)
+				+ "/"
+				+ calendar.get(Calendar.MONTH)
+				+ "/"
+				+ calendar.get(Calendar.YEAR)
 				+ " - est‡s a "
 				+ Math.round(Util.distFrom(Double.valueOf(e.getLatitude()).floatValue(), Double
 						.valueOf(e.getLongitude()).floatValue(), Double
 						.valueOf(point.getLatitude()).floatValue(),
 						Double.valueOf(point.getLongitude()).floatValue())) + "m");
-		
 		Button b = (Button) findViewById(R.id.buttonGet);
 		b.setOnClickListener(this);
-		
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case  R.id.buttonGet:
-			 getEventForMe();
+		case R.id.buttonGet:
+			getEventForMe();
 		default:
 			break;
 		}
@@ -97,7 +101,7 @@ public class EventActivity extends SherlockFragmentActivity implements OnClickLi
 				}
 			}
 		};
-		PostGetEventForMe up = new PostGetEventForMe(updateHandler, user.getName(), e.getTitle() );
+		PostGetEventForMe up = new PostGetEventForMe(updateHandler, user.getName(), e.getTitle());
 		up.start();
 	}
 

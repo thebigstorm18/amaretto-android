@@ -42,16 +42,14 @@ public class PostGetEventForMe extends Thread {
 			Log.i("title:"+ titleEvent);
 			data.put("receiver", usernameReceiver);
 			Log.i("receiver:" + usernameReceiver);
-			HttpRequest h = HttpRequest.post(Constant.SERVER_URL + "/api/event/receive");
-			Log.i(h.body());
-			int code = h.form(data).code();
+			int code = HttpRequest.post(Constant.SERVER_URL + "/api/event/receive").form(data).code();
 			if (code == 200) {
 				sendMessage(CODE_OK);
 			} else {
 				sendMessage(CODE_ERROR);
 			}
 		} catch (Exception e) {
-			Log.e("other exception, maybe encrypt: " + e.getMessage());
+			Log.e(e.getMessage());
 			sendMessage(CODE_ERROR);
 		}
 	}

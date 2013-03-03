@@ -1,6 +1,7 @@
 package com.theostriches.amaretto.android.fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -95,19 +96,23 @@ public class EventListFragment extends SherlockListFragment implements OnItemCli
 				}
 				TextView tu = (TextView) v.findViewById(R.id.textViewLimit);
 				if (tu != null) {
-					Date date = new Date();
-					date.setTime(p.getTimestampLimit());
-					tu.setText("Hasta " + date.toLocaleString());
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTimeInMillis(p.getTimestampLimit());
+
+					tu.setText("Hasta " + calendar.get(Calendar.DAY_OF_MONTH) + "/" 
+					+ calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR));
 				}
 				TextView tdd = (TextView) v.findViewById(R.id.textViewDistance);
 				if (tdd != null) {
 					Point point = mMain.getLocation();
-					tdd.setText("a "
-							+ Math.round(Util.distFrom(
-									Double.valueOf(p.getLatitude()).floatValue(),
-									Double.valueOf(p.getLongitude()).floatValue(),
-									Double.valueOf(point.getLatitude()).floatValue(), Double
-											.valueOf(point.getLongitude()).floatValue())) + "m");
+					if (point != null) {
+						tdd.setText("a "
+								+ Math.round(Util.distFrom(
+										Double.valueOf(p.getLatitude()).floatValue(),
+										Double.valueOf(p.getLongitude()).floatValue(),
+										Double.valueOf(point.getLatitude()).floatValue(), Double
+												.valueOf(point.getLongitude()).floatValue())) + "m");
+					}
 				}
 			}
 			return v;

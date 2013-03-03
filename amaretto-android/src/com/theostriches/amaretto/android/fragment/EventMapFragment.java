@@ -27,7 +27,7 @@ public class EventMapFragment extends SupportMapFragment {
 
 	public void updateMap(Point p) {
 		getMap().moveCamera(
-				CameraUpdateFactory.newLatLngZoom(new LatLng(p.getLatitude(), p.getLongitude()), 14));
+				CameraUpdateFactory.newLatLngZoom(new LatLng(p.getLatitude(), p.getLongitude()), 15));
 		getMap().setOnMarkerClickListener(new OnMarkerClickListener() {
 
 			@Override

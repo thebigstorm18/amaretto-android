@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,7 @@ public class LoginActivity extends SherlockFragmentActivity implements OnClickLi
 	private EditText eUser;
 	private EditText ePass;
 	private LocalDataManager localData;
+	private ProgressDialog mProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class LoginActivity extends SherlockFragmentActivity implements OnClickLi
 		Handler updateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
+				mProgressDialog.dismiss();
 				try {
 					switch (msg.what) {
 					case PostLogIn.CODE_OK:
@@ -90,6 +93,10 @@ public class LoginActivity extends SherlockFragmentActivity implements OnClickLi
 		PostLogIn up = new PostLogIn(updateHandler, eUser.getText().toString(), md5(ePass.getText()
 				.toString()), newUser);
 		up.start();
+		 mProgressDialog = ProgressDialog.show(mContext,
+		 mContext.getText(R.string.loading),
+		 mContext.getText(R.string.please_wait), true, true, null);
+
 	}
 
 	public String md5(String s) {

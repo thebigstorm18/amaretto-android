@@ -69,12 +69,11 @@ public class NewEventFragment extends SherlockFragment {
 							@Override
 							public void onClick(DialogInterface dialog, int id) {
 								DatePicker d = (DatePicker) dialogView.findViewById(R.id.datePicker1);
-								TimePicker t = (TimePicker) dialogView.findViewById(R.id.timePicker1);
 								int month = d.getMonth();
 								int dayOfMonth = d.getDayOfMonth();
 								int year = d.getYear();
-								int hour = t.getCurrentHour();
-								int minute = t.getCurrentMinute();
+								int hour = 0;
+								int minute = 0;
 							    Calendar cal = Calendar.getInstance();
 							    cal.set(Calendar.YEAR, year);
 							    cal.set(Calendar.MONTH, month);

@@ -90,9 +90,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		getLocationFromGps();
 	}
 
-
-
-
 	public ArrayList<Event> getEventList() {
 		return eventList;
 	}
@@ -255,6 +252,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		invalidateOptionsMenu();
+
 		switch (requestCode) {
 		case LOGIN_REQUEST:
 			if (resultCode == Activity.RESULT_OK) {
@@ -270,6 +269,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		Handler updateHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
+				mProgressDialog.dismiss();
 				try {
 					switch (msg.what) {
 					case GetEvents.CODE_OK:
@@ -288,17 +288,25 @@ public class MainActivity extends SherlockFragmentActivity {
 		};
 		GetEvents up = new GetEvents(updateHandler);
 		up.start();
+		mProgressDialog = ProgressDialog.show(mContext, mContext.getText(R.string.loading),
+				mContext.getText(R.string.please_wait), true, true, null);
+
 	}
-	
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		SubMenu submenu = menu.addSubMenu(0, Menu.NONE, 1, R.string.menu_more).setIcon(R.drawable.ic_menu_more);
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		SubMenu submenu = menu.addSubMenu(0, Menu.NONE, 1, R.string.menu_more).setIcon(
+				R.drawable.ic_menu_more);
 		submenu.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		submenu.add(0, 1, Menu.NONE, "Usuario");
-	    return super.onCreateOptionsMenu(menu);
+		if (mLocalDataManager.getLogin() == null) {
+			submenu.add(0, 1, Menu.NONE, "LogIn/SignUp");
+		} else {
+			submenu.add(0, 2, Menu.NONE, "LogOut");
+		}
+		SubMenu s2 = menu.addSubMenu(0, 4, 0, "Actualizar").setIcon(R.drawable.navigation_refresh);
+		s2.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return super.onPrepareOptionsMenu(menu);
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -307,23 +315,27 @@ public class MainActivity extends SherlockFragmentActivity {
 			onBackPressed();
 			return true;
 		case 1:
+		case 2:
 			if (mLocalDataManager.getLogin() == null) {
 				showLogin();
 			} else {
 				mLocalDataManager.clearLogin();
 				Toast.makeText(mContext, "LogOut realizado", Toast.LENGTH_LONG).show();
 			}
+			invalidateOptionsMenu();
 			return true;
+		case 4:
+			getEventsFromServer();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void showLogin() {
 		Intent i = new Intent(mContext, LoginActivity.class);
 		startActivityForResult(i, LOGIN_REQUEST);
 	}
-	
+
 	public void showEventActivity(Event e) {
 		Intent i = new Intent(mContext, EventActivity.class);
 		i.putExtra("event", e);
@@ -331,10 +343,9 @@ public class MainActivity extends SherlockFragmentActivity {
 		i.putExtra("user", user);
 		startActivityForResult(i, EVENT_REQUEST);
 	}
-	
+
 	public void updateEvents() {
 		getEventsFromServer();
 	}
-
 
 }

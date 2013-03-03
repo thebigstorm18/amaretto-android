@@ -26,4 +26,7 @@
     
     <string name="menu_more">Más</string>
     <string name="get_event">Lo necesito!</string>
+    
+        <string name="loading">Cargando</string>
+    
 </resources>
