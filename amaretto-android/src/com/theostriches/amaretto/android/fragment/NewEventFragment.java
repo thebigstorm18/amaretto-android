@@ -73,7 +73,7 @@ public class NewEventFragment extends SherlockFragment {
 							    cal.set(Calendar.HOUR_OF_DAY, hour);
 							    cal.set(Calendar.MINUTE, minute);
 							    Date dateRepresentation = cal.getTime();
-							    event.setTimestampLimit(dateRepresentation.getTime());		
+							    event.setTimestampLimit(dateRepresentation.getTime());
 							}
 						});
 				builder.create().show();

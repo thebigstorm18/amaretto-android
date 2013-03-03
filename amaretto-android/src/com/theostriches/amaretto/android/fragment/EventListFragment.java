@@ -1,6 +1,7 @@
 package com.theostriches.amaretto.android.fragment;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +16,9 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.theostriches.amaretto.android.MainActivity;
 import com.theostriches.amaretto.android.R;
 import com.theostriches.amaretto.android.model.Event;
-
+import com.theostriches.amaretto.android.model.Point;
+import com.theostriches.amaretto.android.util.Log;
+import com.theostriches.amaretto.android.util.Util;
 
 public class EventListFragment extends SherlockListFragment {
 
@@ -47,10 +50,9 @@ public class EventListFragment extends SherlockListFragment {
 
 	public class ItemListAdapter extends ArrayAdapter<Event> {
 
-		private List<Event> mListProducts;
-		 
+		private ArrayList<Event> mListProducts;
 
-		public ItemListAdapter(List<Event> listLibros) {
+		public ItemListAdapter(ArrayList<Event> listLibros) {
 			super(mMain, 0);
 			this.mListProducts = listLibros;
 		}
@@ -70,7 +72,8 @@ public class EventListFragment extends SherlockListFragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v;
 			if (convertView == null) {
-				LayoutInflater inflater = (LayoutInflater) mMain.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				LayoutInflater inflater = (LayoutInflater) mMain
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = inflater.inflate(R.layout.fragment_products_row, null);
 			} else {
 				v = convertView;
@@ -81,11 +84,37 @@ public class EventListFragment extends SherlockListFragment {
 				if (tt != null) {
 					tt.setText(p.getTitle());
 				}
+				TextView td = (TextView) v.findViewById(R.id.textViewDesc);
+				if (td != null) {
+					td.setText(p.getDescription());
+				}
+				TextView tu = (TextView) v.findViewById(R.id.textViewLimit);
+				if (tu != null) {
+					Date date = new Date();
+					date.setTime(p.getTimestampLimit());
+					tu.setText("Hasta " + date.toLocaleString());
+				}
+				TextView tdd = (TextView) v.findViewById(R.id.textViewDistance);
+				if (tdd != null) {
+					Point point = mMain.getLocation();
+					tdd.setText("a "
+							+ Math.round(Util.distFrom(
+									Double.valueOf(p.getLatitude()).floatValue(),
+									Double.valueOf(p.getLongitude()).floatValue(),
+									Double.valueOf(point.getLatitude()).floatValue(), Double
+											.valueOf(point.getLongitude()).floatValue())) + "m");
+				}
 			}
 			return v;
 		}
 	}
 
+	public void updateEvents() {
+		adapter = new ItemListAdapter(mMain.getEventList());
+		setListAdapter(adapter);
 
+		// adapter.notifyDataSetChanged();
+		Log.i("updateEvents");
+	}
 
 }

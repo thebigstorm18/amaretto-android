@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" 
-    android:padding="15dp">
+    android:orientation="vertical"
+    android:padding="15dp" >
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -16,7 +16,8 @@
         android:id="@+id/textViewDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="2" android:ellipsize="end"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="Event description event description Event description event description Event description event description "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -29,16 +30,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hasta xx/xx/xxxx"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#777" />
 
         <TextView
             android:id="@+id/textViewDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="right"
             android:text=" a 400 m"
-            android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="right" />
-
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#777" />
     </LinearLayout>
-    
+
 </LinearLayout>

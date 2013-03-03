@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Amaretto</string>
+    <string name="app_name">Mutequi</string>
     <string name="action_settings">Ajustes</string>
     <string name="title_section1">Nuevo evento</string>
     <string name="title_section2">Alrededor</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section3">Mapa</string>
     <string name="login_user">Usuario:</string>
     <string name="login_password">Contraseña:</string>
     <string name="login">Login</string>
@@ -15,6 +15,14 @@
     <string name="newevent_submit">Nuevo evento</string>
     <string name="newevent_date">Elegir fecha límite</string>
     <string name="ok">Ok</string>
-    <string name="day">Day:</string>
-    <string name="time">Time:</string>
+    <string name="day">Dia:</string>
+    <string name="time">Hora:</string>
+    
+    <string name="please_wait">Por favor espere</string>
+    <string name="search_signal_gps">Buscando señal GPS</string>
+    <string name="gps_signal_not_found">Señal GPS no encontradada</string>
+    <string name="create_new_user">Crear nuevo usuario</string>
+    <string name="signup">SignUp</string>
+    
+    <string name="menu_more">Más</string>
 </resources>

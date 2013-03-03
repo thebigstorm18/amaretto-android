@@ -1,24 +1,54 @@
 package com.theostriches.amaretto.android.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
 
-public class Event {
+public class Event implements Serializable {
 
+	private static final long serialVersionUID = -4152020055833897028L;
+	@SerializedName("title")
 	private String title;
+	@SerializedName("description")
 	private String description;
-	private User receiver;
-	private User giver;
+	@SerializedName("receiver")
+	private String receiver;
+	@SerializedName("giver")
+	private String giver;
+	@SerializedName("state")
 	private EventState state;
-	private long timestampCreation;	
+	@SerializedName("created_at")
+	private long timestampCreation;
+	@SerializedName("used_at")
+	private long timestampUser;
+	@SerializedName("until")
 	private long timestampLimit;
-	private Position position;
+	@SerializedName("latitude")
+	private double latitude;
+	@SerializedName("longitude")
+	private double longitude;
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
 	public Event() {
 		Date date = new Date();
 		timestampCreation = date.getTime();
 	}
-	
 
 	public String getTitle() {
 		return title;
@@ -36,19 +66,19 @@ public class Event {
 		this.description = description;
 	}
 
-	public User getReceiver() {
+	public String getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(User receiver) {
+	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
 
-	public User getGiver() {
+	public String getGiver() {
 		return giver;
 	}
 
-	public void setGiver(User giver) {
+	public void setGiver(String giver) {
 		this.giver = giver;
 	}
 
@@ -58,6 +88,14 @@ public class Event {
 
 	public void setTimestampCreation(long timestampCreation) {
 		this.timestampCreation = timestampCreation;
+	}
+
+	public long getTimestampUser() {
+		return timestampUser;
+	}
+
+	public void setTimestampUser(long timestampUser) {
+		this.timestampUser = timestampUser;
 	}
 
 	public long getTimestampLimit() {
@@ -76,39 +114,8 @@ public class Event {
 		this.state = state;
 	}
 
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
 	public enum EventState {
 		CREATED, ACCEPTED, FINISHED
 	}
-	
-	public class Position {
-		private int latitude;
-		private int longitude;
-		
-		public Position() {			
-		}
 
-		public int getLatitude() {
-			return latitude;
-		}
-
-		public void setLatitude(int latitude) {
-			this.latitude = latitude;
-		}
-
-		public int getLongitude() {
-			return longitude;
-		}
-
-		public void setLongitude(int longitude) {
-			this.longitude = longitude;
-		}
-	}
 }
