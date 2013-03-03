@@ -13,9 +13,9 @@ public class Event implements Serializable {
 	@SerializedName("description")
 	private String description;
 	@SerializedName("receiver")
-	private String receiver;
+	private User receiver;
 	@SerializedName("giver")
-	private String giver;
+	private User giver;
 	@SerializedName("state")
 	private EventState state;
 	@SerializedName("created_at")
@@ -66,19 +66,19 @@ public class Event implements Serializable {
 		this.description = description;
 	}
 
-	public String getReceiver() {
+	public User getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(String receiver) {
+	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
 
-	public String getGiver() {
+	public User getGiver() {
 		return giver;
 	}
 
-	public void setGiver(String giver) {
+	public void setGiver(User giver) {
 		this.giver = giver;
 	}
 

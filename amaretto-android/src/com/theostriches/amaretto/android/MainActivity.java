@@ -39,6 +39,7 @@ import com.theostriches.amaretto.android.util.LocalDataManager;
 public class MainActivity extends SherlockFragmentActivity {
 
 	public static final int LOGIN_REQUEST = 133;
+	public static final int EVENT_REQUEST = 134;
 
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -321,6 +322,18 @@ public class MainActivity extends SherlockFragmentActivity {
 	public void showLogin() {
 		Intent i = new Intent(mContext, LoginActivity.class);
 		startActivityForResult(i, LOGIN_REQUEST);
+	}
+	
+	public void showEventActivity(Event e) {
+		Intent i = new Intent(mContext, EventActivity.class);
+		i.putExtra("event", e);
+		i.putExtra("point", location);
+		i.putExtra("user", user);
+		startActivityForResult(i, EVENT_REQUEST);
+	}
+	
+	public void updateEvents() {
+		getEventsFromServer();
 	}
 
 

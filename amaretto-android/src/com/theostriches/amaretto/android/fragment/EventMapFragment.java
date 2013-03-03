@@ -34,12 +34,7 @@ public class EventMapFragment extends SupportMapFragment {
 			public boolean onMarkerClick(Marker arg0) {
 				Event e = getEventWithTitle(arg0.getTitle());
 				if (e != null){
-					Point p = mMain.getLocation();
-					Intent i = new Intent(mMain, EventActivity.class);
-					i.putExtra("event", e);
-					i.putExtra("point", p);
-					i.putExtra("user", mMain.getUser());
-					startActivity(i);
+					mMain.showEventActivity(e);
 					return true;
 				} else {
 					return false;

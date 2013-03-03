@@ -49,7 +49,7 @@ public class EventActivity extends SherlockFragmentActivity implements OnClickLi
 		TextView t2 = (TextView) findViewById(R.id.textViewDesc);
 		t2.setText(e.getDescription());
 		TextView t3 = (TextView) findViewById(R.id.textViewUser);
-		t3.setText("por " + e.getGiver());
+		t3.setText("por " + e.getGiver().getName());
 		TextView t4 = (TextView) findViewById(R.id.textViewMore);
 		Date d = new Date();
 		d.setTime(e.getTimestampLimit());

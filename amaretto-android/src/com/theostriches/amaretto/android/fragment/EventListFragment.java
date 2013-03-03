@@ -125,12 +125,7 @@ public class EventListFragment extends SherlockListFragment implements OnItemCli
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Event e = mMain.getEventList().get(arg2);
-		Point p = mMain.getLocation();
-		Intent i = new Intent(mMain, EventActivity.class);
-		i.putExtra("event", e);
-		i.putExtra("point", p);
-		i.putExtra("user", mMain.getUser());
-		startActivity(i);
+		mMain.showEventActivity(e);
 	}
 
 }

@@ -100,7 +100,7 @@ public class NewEventFragment extends SherlockFragment {
 				if (mLocalData.getLogin() == null) {
 					mMain.showLogin();
 				} else {
-					event.setGiver(mLocalData.getLogin().getName());
+					event.setGiver(mLocalData.getLogin());
 					sendEvent(event);
 				}
 			}
@@ -120,6 +120,7 @@ public class NewEventFragment extends SherlockFragment {
 								Toast.LENGTH_LONG).show();
 						et.setText("");
 						et2.setText("");
+						mMain.updateEvents();
 						break;
 					case NewEvent.CODE_ERROR:
 					default:

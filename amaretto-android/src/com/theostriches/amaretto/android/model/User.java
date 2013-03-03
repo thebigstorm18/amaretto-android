@@ -8,7 +8,7 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 615521796464152996L;
 	
-	@SerializedName("user")
+	@SerializedName("username")
 	private String name;
 	@SerializedName("password")
 	private String passwordHash;

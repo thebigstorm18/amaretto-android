@@ -35,7 +35,7 @@ public class NewEvent extends Thread {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("title", event.getTitle());
 			data.put("description", event.getDescription());
-			data.put("giver", event.getGiver());
+			data.put("giver", event.getGiver().getName());
 			data.put("receiver", null);
 			data.put("state", null);
 			data.put("created_at", "" + event.getTimestampCreation());
