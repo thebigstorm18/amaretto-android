@@ -1,6 +1,6 @@
 # MUTEQUI
 
-This is the Android Application for the first called *amaretto* Project, later know as *Mutequi*. Mutequi has been developed at the social hackaton *HackForGood Madrid 2013* in 36h non-stop.
+This is the Android Application for the first called *amaretto* Project, later know as *Mutequi*. Mutequi has been developed at the social hackaton *HackForGood Madrid 2013* in a 36h non-stop rush (pretty crazy, but a lot of fun).
 
 ## What is Mutequi 
 
