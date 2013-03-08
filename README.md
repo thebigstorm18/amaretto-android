@@ -8,7 +8,7 @@ Imagine a plataform that allows you to exchange abilities, services and products
 
 ## Current state
 
-At the moment, we don't have plans to continue with the development of Mutequi. If you're interested in work with the sources of the Android application, [contact me (Toni Prada)](mailto:toniprada@gmail.com). You can contact me to ask about the amaretto project (api, web frontend, app) too, and I will you put in contact with the whole team.
+At the moment, we don't have plans to continue with the development of Mutequi. If you're interested in working with the sources of the Android application, [contact me (Toni Prada)](mailto:toniprada@gmail.com). You can contact me to ask about the amaretto project (api, web frontend, app) too, and I will you put in contact with the whole team.
 
 ## Contributors
 
